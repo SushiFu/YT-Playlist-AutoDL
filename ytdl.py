@@ -2,7 +2,6 @@
 
 import pafy
 import os
-import sys
 import time
 import json
 
@@ -47,7 +46,7 @@ def downloadPl(tracks):
             f = s.download()
             fin = "'" + f + "'"
             conv = "ffmpeg -i "
-            conv_args = " -codec:a libmp3lame -q:a 0 "
+            conv_args = " -threads 0 -codec:a libmp3lame -q:a 0 "
             print("Conversion en mp3")
             os.system(conv + fin + conv_args + fout + "> /dev/null 2>&1")
             print("\n")
