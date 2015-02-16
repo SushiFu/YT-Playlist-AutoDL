@@ -5,8 +5,9 @@ config file:
 
 ```json
 {
-	url:[
-		"youtubeplaylisturl"
-	]
+	"urls":[
+		"youtubeplaylisturl.com"
+	],
+	"can_convert_to_mp3": true
 }
 ```
