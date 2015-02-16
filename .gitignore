@@ -1,0 +1,17 @@
+*.py[cod]
+otherstuff/
+*.mp3
+pafy.py
+vi.py
+changelog
+MANIFEST
+.dev
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var

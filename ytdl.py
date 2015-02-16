@@ -58,6 +58,6 @@ if __name__ == '__main__':
         newTracks = getComparePl(oldPlaylist, playlist['items'])
         print("New Tracks: " + str(len(newTracks)))
         downloadPl(newTracks)
-        time.sleep(10)
+        time.sleep(60 * 10)
 
 
