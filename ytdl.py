@@ -4,6 +4,37 @@ import pafy
 import os
 import sys
 import time
+import json
+
+# Config
+def createConfigFile():
+    print("creating config")
+    config_file = open("config", "w")
+    youtube_playlist_url = input("Enter youtube playlist url : ")
+    json_data = json.dumps({"urls": [youtube_playlist_url]})
+    config_file.write(json_data)
+    config_file.close()
+    print("Config file created")
+    return json_data
+
+def getConfigData():
+    if (fileCheck("config")):
+        config_file = open("config", "r")
+        json_data = json.loads(config_file.read())
+        return json_data
+    else:
+        print("Error: no config")
+
+# File function
+
+def fileCheck(filename):
+    try:
+        open(filename, "r")
+        return True
+    except IOError:
+        return False
+
+# Playlist handle
 
 def downloadPl(tracks):
     for t in tracks:
@@ -39,13 +70,23 @@ def getComparePl(oldPlaylist, playlist):
 
     return result
 
+# Main
+
 if __name__ == '__main__':
 
-    if len(sys.argv) != 2:
-        print("Enter a url playlist, Usage: " + sys.argv[0] + " url")
-        exit(1)
+    # Check if config file exist, if not, create it
+    fileExist = fileCheck("config")
+    if (fileExist):
+        print("Config file exist")
+        json_data = getConfigData()
+    else:
+        print("Config file doesn't exist")
+        json_data = createConfigFile()
 
-    playlist = pafy.get_playlist(sys.argv[1])
+    urls = json_data["urls"]
+    firstURL = urls[0]
+
+    playlist = pafy.get_playlist(firstURL)
     if not os.path.isdir(playlist['title'].replace('/', '-')):
         os.mkdir(playlist['title'].replace('/', '-'))
 
@@ -54,10 +95,8 @@ if __name__ == '__main__':
     downloadPl(playlist['items'])
     while True:
         oldPlaylist = list(playlist['items'])
-        playlist = pafy.get_playlist(sys.argv[1])
+        playlist = pafy.get_playlist(firstURL)
         newTracks = getComparePl(oldPlaylist, playlist['items'])
         print("New Tracks: " + str(len(newTracks)))
         downloadPl(newTracks)
         time.sleep(60 * 10)
-
-
