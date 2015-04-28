@@ -1,5 +1,4 @@
 # youtube playlist auto mp3 downloader
-===============
 
 config file:
 
