@@ -1,5 +1,5 @@
-ytdl - youtube downloader
-=========================
+# youtube playlist automatic mp3 downloader
+===========================================
 
 config file:
 
